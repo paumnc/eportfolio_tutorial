@@ -7,6 +7,7 @@
     --white: #fff;
     --light-pink: #e9a292;
 }
+
 * {
     margin: 0;
     padding: 0;
@@ -55,6 +56,7 @@ li {
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
+    padding: 0 12px;
 }
 
 .container {
@@ -68,6 +70,43 @@ section:nth-child(even) {
     margin-bottom: 20px;
 }
 
+a {
+    text-decoration: none;
+    position: relative;
+    transition: opacity 300ms ease;
+}
+
+i:hover {
+    opacity: 0.7;
+}
+
+.link_hover-effect::after {
+    content: "";
+    position: absolute;
+    height: 3px;
+    width: 0;
+    bottom: -3px;
+    right: 0;
+    transition: all 300ms ease;
+}
+
+.link_hover-effect-black::after {
+    background: var(--dark-grey);
+}
+}
+
+.link_hover-effect--white::after {
+    background: var(--white);
+}
+
+.link_hover-effect:hover::after {
+width: 100%;
+left: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
 /* 
 
 NAVIGATION BAR 
@@ -82,6 +121,7 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0 12px;
 }
 
 .navlinks {
@@ -89,7 +129,6 @@ nav {
 }
 
 .nav_link-anchor {
-    text-decoration: none;
     margin: 0 12px;
     font-size: 16px;
     color: var(--dark-grey);
@@ -117,6 +156,7 @@ nav {
 .about-me_picture-mask img {
     width: 100%;
 }
+
 
 
 /* 
@@ -149,33 +189,59 @@ ABOUT ME
     overflow: hidden;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     margin-bottom: 28px;
+    animation: animate-profile-picture 800ms 200ms backwards;
  }
 
+ /* animation for the profile picture */
+
+ @keyframes animate-profile-picture {
+     0% {
+         transform: scale(0);
+     }
+     80% {
+         transform: scale(1.1);
+     }
+     100% {
+         transform: scale(1);
+     }
+ }
 
  .aboutme-pic {
      width: 100%;
 /*  
  Improving my own picture 
  transform: scale (1.5); to zoom in
-
  */
 }
 
  .about-me__info--title {
      margin-bottom: 16px;
+     animation: fade-up 650ms 400ms backwards;
  }
 .about-me_info--para {
     font-size: 20px;
     margin-bottom: 28px;
+    animation: fade-up 650ms 600ms backwards;
 }
 
 .about-me__links {
     font-size: 20px;
     color: var(--dark-grey);
-    text-decoration: none;
     padding: 0 16px;
+    animation: fade-up 650ms 800ms backwards;
 }
 
+@keyframes fade-up {
+    0% {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 .about-me__img--container {
     flex: 1;
     display: flex;
@@ -184,8 +250,34 @@ ABOUT ME
 
 .about-me__img {
     width: 100%;
+    animation: fade-in 1200ms 800ms backwards;
 }
 
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.wave {
+    display: inline-block;
+animation: animate-wave 500ms infinite  ease-in-out;
+}
+
+@keyframes animate-wave {
+    0% {
+        transform: rotate(0);
+    }
+    50% {
+        transform: rotate(30deg);
+    }
+    100% {
+        transform: rotate(0);
+    }
+}
 /* TECH - STACK */
 
 .language-img {
@@ -218,7 +310,6 @@ ABOUT ME
     display: flex;
     flex-wrap: wrap;
     width: 100%;
-
 }
 
 .language_name {
@@ -317,7 +408,6 @@ PROJECT
 
  .project_description--link {
      margin-right: 20px;
-     text-decoration: none;
  }
 
  .project_description--title, .project_description--subtitle,
@@ -326,4 +416,120 @@ PROJECT
      color: var(--white);
  }
 
+/* 
+ FOOTER
+   */
+
+footer {
+    background: var(--dark-brown)
+}
+
+.footer_row {
+    padding: 2% 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.footer_logo-img {
+    width:250px;
+    height: 250px;
+}
+
+.footer_social--link, .footer_copyright {
+    color: var(--white);
  
+}
+
+.footer_social--list {
+    margin-bottom: 28px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    cursor: pointer;
+    max-width: 600px;
+}
+
+.footer_anchor {
+    position: relative;
+}
+
+.footer_anchor:hover .footer_logo--popup {
+opacity: 1;
+
+right: 0;
+}
+
+.footer_logo--popup {
+    color: var(--white);
+    position: absolute;
+    right: 100px;
+    top: 105px;
+    font-weight: 700;;
+    opacity: 0;
+    transition: all 300ms ease;
+}
+
+/* Small phones, tablets, large smartphones */
+
+@media only screen and (max-width: 768px) {
+    nav {
+        height: 68px;
+    }
+    h1 {
+        font-size: 28px;
+    }
+
+    .about-me_info--para {
+        font-size: 18px;
+    }
+    .language {
+        width: calc(100%/3);
+    }
+    .project_description--para {
+        font-size: 14px;
+    }
+    .project_description {
+        padding-right: 30px;
+        left: 30px;
+    }
+}
+
+/* 
+SMALL PHONES
+ */
+
+@media only screen and (max-width: 480px) {
+.nav_link:not(:last-child) {
+    display: none;
+}
+.project_description--para {
+    display: none;
+}
+
+.project_description {
+    padding: 0;
+    left: 0;
+    width: 100%;
+}
+
+.project_description--title {
+    font-size: 32px;
+    line-height: 1;
+    text-align: center;
+}
+
+.project_description--subtitle {
+    font-size: 16px;
+    text-align: center;
+    margin: 12px 0;
+}
+.project_description--link {
+    font-size: 16px;
+}
+
+.project_description--links {
+    display: flex;
+    justify-content: center;
+}
+}
